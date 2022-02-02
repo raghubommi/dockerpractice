@@ -1,0 +1,8 @@
+FROM flyway/flyway
+
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+VOLUME $PWD/sql
+
+ENTRYPOINT cp -f $PWD/sql/*.sql $PWD/sql/ && \
+ $PWD/flyway baseline migrate info -user=${DB_USER} -password=${DB_PASSWORD} -url=${DB_URL}
